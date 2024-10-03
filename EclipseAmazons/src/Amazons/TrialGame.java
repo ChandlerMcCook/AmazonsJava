@@ -5,25 +5,36 @@ import java.util.Scanner;
 
 public class TrialGame {
 
+// the piece objects will be the actual game pieces themselves.
  public static class Piece {
      // Piece logic here
  }
 
+ //
  public static class Square {
-     private boolean isOccupied;
-     //private boolean isBlocked;
-     private Piece piece; //null if there is no piece on the square
-
+     // this tells us if the space has a piece in it
+	 private boolean isOccupied;
+     // tells if there is a barrier on this square
+     private boolean isBlocked;
+     // null if there is no piece on the square
+     private Piece piece;
+     
      //constructor
      public Square() {
-         this.isOccupied = false;
-         //this.isBlocked = false;
+         //starts the square as empty
+    	 this.isOccupied = false;
+         this.isBlocked = false;
          this.piece = null;
      }
      
+     //prints out the square for
      public void printSquare() {
          if (isOccupied) {
-             System.out.print("This is here: " + piece + " ");
+             System.out.print("X");
+         }	else if (isBlocked) {
+        	 System.out.print("0");
+         } else {
+        	 System.out.print(".");
          }
      }
 
@@ -32,12 +43,12 @@ public class TrialGame {
     	 
      }
      
-     public void getPiece() {
+     public Piece getPiece() {
     	 return piece;
      }
  }
 
- //board class
+ //board class, it is a 2d array of Square objects.
  public static class Board {
 
      //creates the array of square objects
