@@ -3,30 +3,10 @@ package Amazons;
 //TrialGame.java
 import java.util.Scanner;
 
-enum pieceColor {
-	white,
-	black
-}
-
 public class TrialGame {
 
  public static class Piece {
      // Piece logic here
-	 
-	 private pieceColor color;
-	 private int x;
-	 private int y;
-	 
-//	//getters and setters
-//     public void setPiece (pieceColor setColor, int setX, int setY) {
-//    	 this.color = setColor;
-//    	 this.x = setX;
-//    	 this.y = setY;
-//     }
-//     
-//     public Piece getPiece() {
-//    	 return piece;
-//     }
  }
 
  public static class Square {
@@ -48,7 +28,13 @@ public class TrialGame {
      }
 
      //getters and setters
+     public void setPiece () {
+    	 
+     }
      
+     public void getPiece() {
+    	 return piece;
+     }
  }
 
  //board class
@@ -66,7 +52,7 @@ public class TrialGame {
              }
          }
          
-//         board[0][3] =
+         board[0][3]
      }
 
      public void display() {
@@ -90,5 +76,6 @@ public class TrialGame {
      Board board = new Board();
 
      board.display();
+     // domryhri
  }
 }
