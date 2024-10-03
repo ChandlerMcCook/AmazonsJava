@@ -3,69 +3,41 @@ package Amazons;
 //TrialGame.java
 import java.util.Scanner;
 
-enum pieceColor {
-	white,
-	black
-}
-
 public class TrialGame {
 
-// the piece objects will be the actual game pieces themselves.
  public static class Piece {
      // Piece logic here
-	 
-	 private pieceColor color;
-	 private int x;
-	 private int y;
-	 
-//	//getters and setters
-//     public void setPiece (pieceColor setColor, int setX, int setY) {
-//    	 this.color = setColor;
-//    	 this.x = setX;
-//    	 this.y = setY;
-//     }
-//     
-//     public Piece getPiece() {
-//    	 return piece;
-//     }
  }
 
- //
  public static class Square {
-     // this tells us if the space has a piece in it
-	 private boolean isOccupied;
-     // tells if there is a barrier on this square
-     private boolean isBlocked;
-     // null if there is no piece on the square
-     private Piece piece;
-     
+     private boolean isOccupied;
+     //private boolean isBlocked;
+     private Piece piece; //null if there is no piece on the square
+
      //constructor
      public Square() {
-         //starts the square as empty
-    	 this.isOccupied = false;
-         this.isBlocked = false;
+         this.isOccupied = false;
+         //this.isBlocked = false;
          this.piece = null;
      }
      
-     //prints out the square for
      public void printSquare() {
          if (isOccupied) {
-             System.out.print("X");
-         }	else if (isBlocked) {
-        	 System.out.print("0");
-         } else {
-        	 System.out.print(".");
+             System.out.print("This is here: " + piece + " ");
          }
      }
 
      //getters and setters
+     public void setPiece () {
+    	 
+     }
      
-     public Piece getPiece() {
+     public void getPiece() {
     	 return piece;
      }
  }
 
- //board class, it is a 2d array of Square objects.
+ //board class
  public static class Board {
 
      //creates the array of square objects
@@ -80,7 +52,7 @@ public class TrialGame {
              }
          }
          
-//         board[0][3] =
+         board[0][3]
      }
 
      public void display() {
@@ -104,5 +76,6 @@ public class TrialGame {
      Board board = new Board();
 
      board.display();
+     // domryhri
  }
 }
