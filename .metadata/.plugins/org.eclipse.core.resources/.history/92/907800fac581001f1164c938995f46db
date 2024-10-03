@@ -20,21 +20,8 @@ public class TrialGame {
          //this.isBlocked = false;
          this.piece = null;
      }
-     
-     public void printSquare() {
-         if (isOccupied) {
-             System.out.print("This is here: " + piece + " ");
-         }
-     }
 
      //getters and setters
-     public void setPiece () {
-    	 
-     }
-     
-     public void getPiece() {
-    	 return piece;
-     }
  }
 
  //board class
@@ -51,8 +38,6 @@ public class TrialGame {
                  board[i][j] = new Square();
              }
          }
-         
-         board[0][3]
      }
 
      public void display() {
@@ -64,7 +49,11 @@ public class TrialGame {
          }
      }
 
-     
+//     public void printSquare() {
+//         if (isOccupied) {
+//             System.out.print("");
+//         }
+//     }
 
      //board logic
  }
