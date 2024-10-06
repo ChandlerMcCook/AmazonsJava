@@ -1,108 +1,195 @@
 package Amazons;
 
 //TrialGame.java
+
+// Game Structure Explanation:
+// The game is made up of several parts:
+// Board, Square, Piece.
+
+// Board
+// a size x size array of Square objects, where size is chosen by the user.
+
+// Square
+// each square is instantiated when the board is created (all empty)
+// each square has information on:
+// is it occupied? What occupies it? is it blocked by a barrier?
+// What specific piece object is on it, if any?
+
+// Pieces
+// Objects that represent the player pieces
+
 import java.util.Scanner;
 
 enum pieceColor {
-	white,
-	black
+    white, black
 }
 
 public class TrialGame {
 
-// the piece objects will be the actual game pieces themselves.
- public static class Piece {
-     // Piece logic here
-	 
-	 private pieceColor color;
-	 private int x;
-	 private int y;
-	 
-//	//getters and setters
-//     public void setPiece (pieceColor setColor, int setX, int setY) {
-//    	 this.color = setColor;
-//    	 this.x = setX;
-//    	 this.y = setY;
-//     }
-//     
-//     public Piece getPiece() {
-//    	 return piece;
-//     }
- }
+    // the piece objects will be the actual game pieces themselves.
+    public static class Piece {
 
- //
- public static class Square {
-     // this tells us if the space has a piece in it
-	 private boolean isOccupied;
-     // tells if there is a barrier on this square
-     private boolean isBlocked;
-     // null if there is no piece on the square
-     private Piece piece;
-     
-     //constructor
-     public Square() {
-         //starts the square as empty
-    	 this.isOccupied = false;
-         this.isBlocked = false;
-         this.piece = null;
-     }
-     
-     //prints out the square for
-     public void printSquare() {
-         if (isOccupied) {
-             System.out.print("X");
-         }	else if (isBlocked) {
-        	 System.out.print("0");
-         } else {
-        	 System.out.print(".");
-         }
-     }
+        private pieceColor color;
+        private int x;
+        private int y;
 
-     //getters and setters
-     
-     public Piece getPiece() {
-    	 return piece;
-     }
- }
+        // Constructor
+        public Piece(pieceColor color, int x, int y) {
+            this.color = color;
+            this.x = x;
+            this.y = y;
+        }
+        
+        // Getters and setters
+        public int getX() {
+            return x;
+        }
 
- //board class, it is a 2d array of Square objects.
- public static class Board {
+        public void setX(int x) {
+            this.x = x;
+        }
 
-     //creates the array of square objects
-     Square[][] board = new Square[10][10];
+        public int getY() {
+            return y;
+        }
 
-     //constructor
-     public Board() {
-         for(int i = 0; i < 10; i++) {
-             for(int j = 0; j < 10; j++) {
-                  //initializes every square
-                 board[i][j] = new Square();
-             }
-         }
-         
-//         board[0][3] =
-     }
+        public void setY(int y) {
+            this.y = y;
+        }
 
-     public void display() {
-         for(int i = 0; i < 10; i++) {
-             for(int j = 0; j < 10; j++) {
-                 //prints each square
-                 //board[i][j].printSquare();
-             }
-         }
-     }
+        public pieceColor getColor() {
+            return color;
+        }
+    }
 
-     
+    //
+    public static class Square {
+        // tells if there is a barrier on this square
+        private boolean isBlocked;
+        // null if there is no piece on the square
+        private Piece piece;
 
-     //board logic
- }
+        // constructor
+        public Square() {
+            // starts the square as empty
+            this.isBlocked = false;
+            this.piece = null;
+        }
 
- public static void main(String[] args) {
-     // Start your game
-     Scanner input = new Scanner(System.in);
+        // prints out the square for
+        public void printSquare() {
+            if (piece != null) {
+                // Show 'W' for white piece, 'B' for black piece
+                if (piece.color == pieceColor.white) {
+                    System.out.print("W ");
+                } else {
+                    System.out.print("B ");
+                }
+            } else if (isBlocked) {
+                System.out.print("0 ");
+            } else {
+                System.out.print(". ");
+            }
+        }
 
-     Board board = new Board();
+        // checks if the square is empty
+        public boolean checkIfEmpty() {
+            // if there is no piece on the square, 
+            // and the square is not blocked,
+            // it is empty and return true
+            if (piece == null && isBlocked == false) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        // getters and setters
 
-     board.display();
- }
+        public boolean getIsBlocked() {
+            return isBlocked;
+        }
+        
+        public void setIsBlocked(boolean isBlocked) {
+            this.isBlocked = isBlocked;
+        }
+        
+        public Piece getPiece() {
+            return piece;
+        }
+        
+        public void setPiece(Piece piece) {
+            this.piece = piece;
+        }
+    }
+
+    // board class, it is a 2d array of Square objects.
+    public static class Board {
+
+        // size of board, chosen by user when created
+        private int boardSize;
+        // creates the array of square objects
+        private Square[][] board;
+
+        // constructor with dynamic size
+        public Board(int size) {
+            // use default size of 10 if input is 0
+            boardSize = (size > 0) ? size : 10; 
+            board = new Square[boardSize][boardSize];
+            for (int i = 0; i < boardSize; i++) {
+                for (int j = 0; j < boardSize; j++) {
+                    // initializes every square
+                    board[i][j] = new Square();
+                }
+            }
+        }
+
+        // prints out the current state of the board to console
+        public void display() {
+            for (int i = 0; i < boardSize; i++) {
+                System.out.println("");
+                for (int j = 0; j < boardSize; j++) {
+                    // prints each square
+                    board[i][j].printSquare();
+                }
+            }
+            System.out.println();
+        }
+        
+        // takes in the piece color, and where you want to place the piece
+        // checks if the space is empty and in bounds, then creates the piece
+        // and places piece on board in that spot.
+        // if not empty, returns error message and does not create piece.
+        public void addPiece(pieceColor color, int x, int y) {
+            // checks if you can place it there.
+            if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && board[x][y].checkIfEmpty() == true) {
+                Piece piece = new Piece(color, x, y);
+                board[x][y].setPiece(piece); // Place the piece on the square
+            } else {
+                System.out.println("Coordinates are out of bounds or space is occupied.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Start your game
+        Scanner input = new Scanner(System.in);
+
+        // Setup the board
+        System.out.println("How big would you like your board to be? \n(put 0 for default size of 10): ");
+        int size = input.nextInt();
+        Board board = new Board(size);
+
+        // Display the empty board
+        System.out.println("Initial board:");
+        board.display();
+        
+        // Add a white piece at (1, 2)
+        board.addPiece(pieceColor.white, 1, 2);
+        // Display the board again to see the piece placement
+        System.out.println("\nAfter placing a piece at (1, 2):");
+        board.display();
+
+        input.close();
+    }
 }
