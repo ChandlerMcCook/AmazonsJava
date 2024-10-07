@@ -86,7 +86,7 @@ public class TrialGame {
                     System.out.print("B ");
                 }
             } else if (isBlocked) {
-                System.out.print("0 ");
+                System.out.print("X ");
             } else {
                 System.out.print(". ");
             }
@@ -169,6 +169,18 @@ public class TrialGame {
                 System.out.println("Coordinates are out of bounds or space is occupied.");
             }
         }
+        
+        // takes in the location where you want to place a block
+        // checks if the space is empty and in bounds, then sets square to blocked
+        // if not empty, returns error message and does not block space.
+        public void placeBlock(int x, int y) {
+        	if (x >= 0 && x < boardSize && y >= 0 && y < boardSize && board[x][y].checkIfEmpty() == true) {
+        		// place a block at this location
+        		board[x][y].setIsBlocked(true);
+        	} else {
+                System.out.println("Coordinates are out of bounds or space is occupied.");
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -176,7 +188,7 @@ public class TrialGame {
         Scanner input = new Scanner(System.in);
 
         // Setup the board
-        System.out.println("How big would you like your board to be? \n(put 0 for default size of 10): ");
+        System.out.print("How big would you like your board to be? \n(put 0 for default size of 10): ");
         int size = input.nextInt();
         Board board = new Board(size);
 
@@ -184,12 +196,27 @@ public class TrialGame {
         System.out.println("Initial board:");
         board.display();
         
-        // Add a white piece at (1, 2)
-        board.addPiece(pieceColor.white, 1, 2);
+        // Add a white piece at (6, 0)
+        board.addPiece(pieceColor.white, 6, 0);
         // Display the board again to see the piece placement
-        System.out.println("\nAfter placing a piece at (1, 2):");
+        System.out.println("\nAfter placing a piece at (6, 0):");
         board.display();
-
+        
+        board.addPiece(pieceColor.white, 6, 9);
+        board.addPiece(pieceColor.white, 9, 3);
+        board.addPiece(pieceColor.white, 9, 6);
+        
+        board.addPiece(pieceColor.black, 0, 3);
+        board.addPiece(pieceColor.black, 0, 6);
+        board.addPiece(pieceColor.black, 3, 0);
+        board.addPiece(pieceColor.black, 3, 9);
+        System.out.println("\nAfter filling the rest of the board:");
+        board.display();
+        
+        board.placeBlock(1,3);
+        System.out.println("\nAfter placing a test barrier:");
+        board.display();
+        
         input.close();
     }
 }
