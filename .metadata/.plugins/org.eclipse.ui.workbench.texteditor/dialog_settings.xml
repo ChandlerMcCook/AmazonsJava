@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="replacehistory">
+		<item value="pieceColor"/>
+		<item value="pieceType"/>
+	</list>
+	<list key="searchhistory">
+		<item value="turn"/>
+		<item value="board[x][y]"/>
+		<item value="pieceType"/>
+		<item value="pieceColor"/>
+	</list>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="887"/>
+		<item key="DIALOG_Y_ORIGIN" value="568"/>
+	</section>
+</section>
