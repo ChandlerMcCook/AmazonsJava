@@ -396,7 +396,6 @@ public class TrialGame {
     	 int originalX = x;
     	 int originalY = y;
     	 
-    	 markValidMoves(x, y);
     	 
     	 display();
     	 

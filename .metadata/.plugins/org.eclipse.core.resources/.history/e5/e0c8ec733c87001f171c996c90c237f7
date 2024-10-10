@@ -125,9 +125,6 @@ public class TrialGame {
      private pieceColor turn;
      
      private Scanner input = new Scanner(System.in);
-     
-     private int [][] whitePieces = new int[4][2];
-     private int [][] blackPieces = new int[4][2];
 
      // constructor
      public Board() {
@@ -142,30 +139,14 @@ public class TrialGame {
          }
          
          board[0][3].setPiece(pieceColor.white);
-         whitePieces[0][0] = 0;
-         whitePieces[0][1] = 3;
          board[0][6].setPiece(pieceColor.white);
-         whitePieces[1][0] = 0;
-         whitePieces[1][1] = 6;
          board[3][0].setPiece(pieceColor.white);
-         whitePieces[2][0] = 3;
-         whitePieces[2][1] = 0;
          board[3][9].setPiece(pieceColor.white);
-         whitePieces[3][0] = 3;
-         whitePieces[3][1] = 9;
          
          board[9][3].setPiece(pieceColor.black);
-         blackPieces[0][0] = 9;
-         blackPieces[0][1] = 3;
          board[9][6].setPiece(pieceColor.black);
-         blackPieces[0][0] = 9;
-         blackPieces[0][1] = 6;
          board[6][0].setPiece(pieceColor.black);
-         blackPieces[0][0] = 6;
-         blackPieces[0][1] = 0;
          board[6][9].setPiece(pieceColor.black);
-         blackPieces[0][0] = 6;
-         blackPieces[0][1] = 9;
      }
 
      // prints out the current state of the board to console
@@ -194,7 +175,7 @@ public class TrialGame {
          }
      }
      
-     public boolean checkValidMoves(int x, int y) {
+     public boolean findValidMoves(int x, int y) {
     	 // something to note is that it looks backwards writing board[y][x] but that is because
     	 // chess notation is column then row, but arrays are indexed row then column
     	 
@@ -202,27 +183,32 @@ public class TrialGame {
     	 
     	 // mark left
     	 for (int i=x-1; i>=0 && board[y][i].checkIfEmpty(); i--) {
+    		 board[y][i].markValid();
     		 flag = true;
     	 }
     	 
     	 // mark right
     	 for (int i=x+1; i<boardSize && board[y][i].checkIfEmpty(); i++) {
+    		 board[y][i].markValid();
 			 flag = true;
     	 }
     	 
     	 // mark down
     	 for (int i=y-1; i>=0 && board[i][x].checkIfEmpty(); i--) {
+    		 board[i][x].markValid();
 			 flag = true;
     	 }
     	 
     	 // mark up
     	 for (int i=y+1; i<boardSize && board[i][x].checkIfEmpty(); i++) {
+    		 board[i][x].markValid();
 			 flag = true;
     	 }
     	 
     	 // mark down-left
     	 int i=y-1, j=x-1;
     	 while (i>=0 && j>=0 && board[i][j].checkIfEmpty()) {
+    		 board[i][j].markValid();
     		 i--;
     		 j--;
     		 flag = true;
@@ -232,6 +218,7 @@ public class TrialGame {
     	 i=y-1;
     	 j=x+1;
     	 while (i>=0 && j<boardSize && board[i][j].checkIfEmpty()) {
+    		 board[i][j].markValid();
     		 i--;
     		 j++;
 			 flag = true;
@@ -241,6 +228,7 @@ public class TrialGame {
     	 i=y+1;
     	 j=x-1;
     	 while (i<boardSize && j>=0 && board[i][j].checkIfEmpty()) {
+    		 board[i][j].markValid();
     		 i++;
     		 j--;
 			 flag = true;
@@ -250,70 +238,13 @@ public class TrialGame {
     	 i=y+1;
     	 j=x+1;
     	 while (i<boardSize && j<boardSize && board[i][j].checkIfEmpty()) {
+    		 board[i][j].markValid();
     		 i++;
     		 j++;
 			 flag = true;
     	 }
     	     	 
     	 return flag;
-     }
-     
-     private void markValidMoves(int x, int y) {
-    	 
-    	 // mark left
-    	 for (int i=x-1; i>=0 && board[y][i].checkIfEmpty(); i--) {
-    		 board[y][i].markValid();
-    	 }
-    	 
-    	 // mark right
-    	 for (int i=x+1; i<boardSize && board[y][i].checkIfEmpty(); i++) {
-    		 board[y][i].markValid();
-    	 }
-    	 
-    	 // mark down
-    	 for (int i=y-1; i>=0 && board[i][x].checkIfEmpty(); i--) {
-    		 board[i][x].markValid();
-    	 }
-    	 
-    	 // mark up
-    	 for (int i=y+1; i<boardSize && board[i][x].checkIfEmpty(); i++) {
-    		 board[i][x].markValid();
-    	 }
-    	 
-    	 // mark down-left
-    	 int i=y-1, j=x-1;
-    	 while (i>=0 && j>=0 && board[i][j].checkIfEmpty()) {
-    		 board[i][j].markValid();
-    		 i--;
-    		 j--;
-    	 }
-    	 
-    	 // mark down-right
-    	 i=y-1;
-    	 j=x+1;
-    	 while (i>=0 && j<boardSize && board[i][j].checkIfEmpty()) {
-    		 board[i][j].markValid();
-    		 i--;
-    		 j++;
-    	 }
-    	 
-    	 // mark up-left
-    	 i=y+1;
-    	 j=x-1;
-    	 while (i<boardSize && j>=0 && board[i][j].checkIfEmpty()) {
-    		 board[i][j].markValid();
-    		 i++;
-    		 j--;
-    	 }
-    	 
-    	 // mark up-right
-    	 i=y+1;
-    	 j=x+1;
-    	 while (i<boardSize && j<boardSize && board[i][j].checkIfEmpty()) {
-    		 board[i][j].markValid();
-    		 i++;
-    		 j++;
-    	 }
      }
      
      private int[] decodeSquare(String coord) {
@@ -333,34 +264,9 @@ public class TrialGame {
      public boolean takeTurn() {
 //    	 Scanner input = new Scanner(System.in);
     	 
-    	 boolean pieceCanMove = false;
     	 if (turn == pieceColor.white) {
-    		 for (int[] pieceArray : whitePieces) {
-    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
-    				 pieceCanMove = true;
-    			 }
-    		 }
-    		 
-    		 if (!pieceCanMove) {
-    			 winner(turn.flip());
-        		 input.close();
-        		 return true;
-    		 }
-    		 
     		 System.out.println("White's Turn:");
     	 } else {
-    		 for (int[] pieceArray : blackPieces) {
-    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
-    				 pieceCanMove = true;
-    			 }
-    		 }
-    		 
-    		 if (!pieceCanMove) {
-    			 winner(turn.flip());
-        		 input.close();
-        		 return true;
-    		 }
-    		 
     		 System.out.println("Black's Turn:");
     	 }
     	 
@@ -396,7 +302,13 @@ public class TrialGame {
     	 int originalX = x;
     	 int originalY = y;
     	 
-    	 markValidMoves(x, y);
+    	 
+    	 // if there are no more valid moves, return
+    	 if (!findValidMoves(x, y)) {
+    		 winner(turn.flip());
+    		 input.close();
+    		 return true;
+    	 }
     	 
     	 display();
     	 
@@ -425,26 +337,9 @@ public class TrialGame {
     	 board[y][x].setPiece(board[originalY][originalX].getPiece());
     	 board[originalY][originalX].deletePiece();
     	 
-    	 // move piece in piece array
-    	 if (turn == pieceColor.white) {
-    		 for (int i=0; i<whitePieces.length; i++) {
-    			 if (originalY == whitePieces[i][0] && originalX == whitePieces[i][1]) {
-    				 whitePieces[i][0] = y;
-    				 whitePieces[i][1] = x;
-    			 }
-    		 }
-    	 } else {
-    		 for (int i=0; i<blackPieces.length; i++) {
-    			 if (originalY == blackPieces[i][0] && originalX == blackPieces[i][1]) {
-    				 blackPieces[i][0] = y;
-    				 blackPieces[i][1] = x;
-    			 }
-    		 }
-    	 }
-    	 
     	 resetFlags();
     	 
-    	 markValidMoves(x, y);
+    	 findValidMoves(x, y);
     	 display();
     	 
     	 do {
@@ -511,6 +406,18 @@ public class TrialGame {
 
      // Setup the board
      Board board = new Board();
+
+     // Display the empty board
+     System.out.println("Initial board:");
+     board.display();
+     
+//     board.placeBlock(1,3);
+//     System.out.println("\nAfter placing a test barrier:");
+//     board.display();
+     
+//     System.out.println("\nMark moves:");
+//     board.findValidMoves(0, 3);
+//     board.display();
      
      boolean doneFlag = false;
      while(!doneFlag) {
