@@ -200,11 +200,8 @@ public class TrialGame {
         	 char spot = (char) ('a' + i);
         	 System.out.print("  " + spot + " ");
          }
-    	 if (boardSize == 10) {    		 
-    		 System.out.println("\n    ---------------------------------------");
-    	 } else {
-    		 System.out.println("\n    -----------------------");
-    	 }
+    	 
+         System.out.println("\n   -----------------------------------------");
          for (int i = boardSize-1; i >= 0; i--) {
         	 System.out.printf("%-3d", i+1);
              for (int j = 0; j < boardSize; j++) {
@@ -213,11 +210,7 @@ public class TrialGame {
                  board[i][j].printSquare();
              }
              System.out.printf("|  %-3d", i+1);
-             if (boardSize == 10) {    		 
-        		 System.out.println("\n    ---------------------------------------");
-        	 } else {
-        		 System.out.println("\n    -----------------------");
-        	 }
+             System.out.println("\n   -----------------------------------------");
          }
          
          System.out.print("   ");
