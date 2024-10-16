@@ -498,8 +498,6 @@ public class TrialGame {
     		 }
     		 
     		 if (!pieceCanMove) {
-    			 resetFlags();
-    			 display();
     			 winner(turn.flip());
         		 input.close();
         		 return true;
@@ -514,8 +512,6 @@ public class TrialGame {
     		 }
     		 
     		 if (!pieceCanMove) {
-    			 resetFlags();
-    			 display();
     			 winner(turn.flip());
         		 input.close();
         		 return true;

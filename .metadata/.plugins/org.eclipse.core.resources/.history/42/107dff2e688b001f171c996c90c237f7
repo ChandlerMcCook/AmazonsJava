@@ -163,14 +163,14 @@ public class TrialGame {
         	 blackPieces[0][0] = 9;
         	 blackPieces[0][1] = 3;
         	 board[9][6].setPiece(pieceColor.black);
-        	 blackPieces[1][0] = 9;
-        	 blackPieces[1][1] = 6;
+        	 blackPieces[0][0] = 9;
+        	 blackPieces[0][1] = 6;
         	 board[6][0].setPiece(pieceColor.black);
-        	 blackPieces[2][0] = 6;
-        	 blackPieces[2][1] = 0;
+        	 blackPieces[0][0] = 6;
+        	 blackPieces[0][1] = 0;
         	 board[6][9].setPiece(pieceColor.black);
-        	 blackPieces[3][0] = 6;
-        	 blackPieces[3][1] = 9;
+        	 blackPieces[0][0] = 6;
+        	 blackPieces[0][1] = 9;
          } else {
         	 whitePieces = new int[2][2];
         	 blackPieces = new int[2][2];
@@ -377,7 +377,39 @@ public class TrialGame {
     	 return location;
      }
      
-     public boolean takeTurn() { 
+     public boolean takeTurn() {
+    	 
+    	 boolean pieceCanMove = false;
+    	 if (turn == pieceColor.white) {
+    		 for (int[] pieceArray : whitePieces) {
+    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
+    				 pieceCanMove = true;
+    			 }
+    		 }
+    		 
+    		 if (!pieceCanMove) {
+    			 winner(turn.flip());
+        		 input.close();
+        		 return true;
+    		 }
+    		 
+    		 System.out.println("White's Turn:");
+    	 } else {
+    		 for (int[] pieceArray : blackPieces) {
+    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
+    				 pieceCanMove = true;
+    			 }
+    		 }
+    		 
+    		 if (!pieceCanMove) {
+    			 winner(turn.flip());
+        		 input.close();
+        		 return true;
+    		 }
+    		 
+    		 System.out.println("Black's Turn:");
+    	 }
+    	 
     	 display();
     	 
     	 Pattern pattern = Pattern.compile("[a-j]([1-9]|10)");
@@ -487,42 +519,6 @@ public class TrialGame {
 	    		 System.out.println("Enter a valid move");
 	    	 }
     	 } while(!board[y][x].getValid() || !placeBlock(x, y));
-    	 
-    	 // after wall is placed, check if lost
-    	 boolean pieceCanMove = false;
-    	 if (turn == pieceColor.white) {
-    		 for (int[] pieceArray : whitePieces) {
-    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
-    				 pieceCanMove = true;
-    			 }
-    		 }
-    		 
-    		 if (!pieceCanMove) {
-    			 resetFlags();
-    			 display();
-    			 winner(turn.flip());
-        		 input.close();
-        		 return true;
-    		 }
-    		 
-    		 System.out.println("White's Turn:");
-    	 } else {
-    		 for (int[] pieceArray : blackPieces) {
-    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
-    				 pieceCanMove = true;
-    			 }
-    		 }
-    		 
-    		 if (!pieceCanMove) {
-    			 resetFlags();
-    			 display();
-    			 winner(turn.flip());
-        		 input.close();
-        		 return true;
-    		 }
-    		 
-    		 System.out.println("Black's Turn:");
-    	 }
     	 
     	 resetFlags();
     	 

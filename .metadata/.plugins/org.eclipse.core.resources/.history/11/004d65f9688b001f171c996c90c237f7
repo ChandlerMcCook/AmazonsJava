@@ -377,7 +377,39 @@ public class TrialGame {
     	 return location;
      }
      
-     public boolean takeTurn() { 
+     public boolean takeTurn() {
+    	 
+    	 boolean pieceCanMove = false;
+    	 if (turn == pieceColor.white) {
+    		 for (int[] pieceArray : whitePieces) {
+    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
+    				 pieceCanMove = true;
+    			 }
+    		 }
+    		 
+    		 if (!pieceCanMove) {
+    			 winner(turn.flip());
+        		 input.close();
+        		 return true;
+    		 }
+    		 
+    		 System.out.println("White's Turn:");
+    	 } else {
+    		 for (int[] pieceArray : blackPieces) {
+    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
+    				 pieceCanMove = true;
+    			 }
+    		 }
+    		 
+    		 if (!pieceCanMove) {
+    			 winner(turn.flip());
+        		 input.close();
+        		 return true;
+    		 }
+    		 
+    		 System.out.println("Black's Turn:");
+    	 }
+    	 
     	 display();
     	 
     	 Pattern pattern = Pattern.compile("[a-j]([1-9]|10)");
@@ -487,42 +519,6 @@ public class TrialGame {
 	    		 System.out.println("Enter a valid move");
 	    	 }
     	 } while(!board[y][x].getValid() || !placeBlock(x, y));
-    	 
-    	 // after wall is placed, check if lost
-    	 boolean pieceCanMove = false;
-    	 if (turn == pieceColor.white) {
-    		 for (int[] pieceArray : whitePieces) {
-    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
-    				 pieceCanMove = true;
-    			 }
-    		 }
-    		 
-    		 if (!pieceCanMove) {
-    			 resetFlags();
-    			 display();
-    			 winner(turn.flip());
-        		 input.close();
-        		 return true;
-    		 }
-    		 
-    		 System.out.println("White's Turn:");
-    	 } else {
-    		 for (int[] pieceArray : blackPieces) {
-    			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
-    				 pieceCanMove = true;
-    			 }
-    		 }
-    		 
-    		 if (!pieceCanMove) {
-    			 resetFlags();
-    			 display();
-    			 winner(turn.flip());
-        		 input.close();
-        		 return true;
-    		 }
-    		 
-    		 System.out.println("Black's Turn:");
-    	 }
     	 
     	 resetFlags();
     	 
