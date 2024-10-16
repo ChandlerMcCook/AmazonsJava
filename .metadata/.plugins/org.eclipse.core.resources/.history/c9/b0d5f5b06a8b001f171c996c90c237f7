@@ -562,7 +562,6 @@ public class TrialGame {
      // call if someone wins 
      public void winner(pieceColor color) {
     	 System.out.println("Congradulations " + color + ", you won!\n");
-    	 input.close();
      }
  }
 

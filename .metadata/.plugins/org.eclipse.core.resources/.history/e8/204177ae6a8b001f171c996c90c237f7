@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 //import java.util.ArrayList;
 
+
 enum pieceColor {
 	white,
 	black;
@@ -33,7 +34,7 @@ public class TrialGame {
      }
  }
 
- // holds the information of a given square on the board
+ //
  public static class Square {
 	 // tells if there is a barrier on this square
      private boolean isBlocked;
@@ -120,7 +121,7 @@ public class TrialGame {
      private final int boardSize;
      // creates the array of square objects
      private Square[][] board;
-     // stores whose turn it is
+     
      private pieceColor turn;
      
      private Scanner input = new Scanner(System.in);
@@ -490,14 +491,12 @@ public class TrialGame {
     	 // after wall is placed, check if lost
     	 boolean pieceCanMove = false;
     	 if (turn == pieceColor.white) {
-    		 // check if any white piece can move
     		 for (int[] pieceArray : whitePieces) {
     			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
     				 pieceCanMove = true;
     			 }
     		 }
     		 
-    		 // if no pieces can move call a loss
     		 if (!pieceCanMove) {
     			 resetFlags();
     			 display();
@@ -508,14 +507,12 @@ public class TrialGame {
     		 
     		 System.out.println("White's Turn:");
     	 } else {
-    		 // check if any black pieces can move
     		 for (int[] pieceArray : blackPieces) {
     			 if (checkValidMoves(pieceArray[1], pieceArray[0])) {
     				 pieceCanMove = true;
     			 }
     		 }
     		 
-    		 // if no pieces can move call a loss
     		 if (!pieceCanMove) {
     			 resetFlags();
     			 display();
@@ -534,7 +531,7 @@ public class TrialGame {
     	 return false;
      }
      
-     // reset valid flags for all squares
+     // reset valid flags
      private void resetFlags() {
     	 for (Square [] row : board) {
     		 for (Square s : row) {
@@ -558,8 +555,6 @@ public class TrialGame {
          }
      }
      
-     
-     // call if someone wins 
      public void winner(pieceColor color) {
     	 System.out.println("Congradulations " + color + ", you won!\n");
     	 input.close();
